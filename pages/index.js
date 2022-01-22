@@ -1,6 +1,32 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import Head from 'next/head'
+import Script from 'next/script'
+import { useState, useEffect } from 'react'
+import hljs from 'highlight.js'
+import '../node_modules/highlight.js/styles/night-owl.css'
+import Hero from '../components/hero'
+import Feature from '../components/feature'
 
 export default function Home() {
+  const [yourUrl, setYourUrl] = useState('example.com');
+  const [domain, setDomain] = useState(yourUrl);
+
+  useEffect(() => {
+    hljs.highlightAll();  
+  }, [])
+
+
+  const doCopy = (text) => {
+    navigator.clipboard.writeText(text);
+  }
+
+  const doDomain = (e) => {
+    console.log(e)
+    setYourUrl(e.target.value)
+    setDomain(e.value)
+  }
+
+  
   return (
     <div>
       <Head>
@@ -9,18 +35,233 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         <script defer data-domain="signupy.com" src="https://plausible.io/js/plausible.js"></script>
+        
       </Head>
-
       <main>
-      <h1 className="text-3xl font-bold">
-        Contact people everywhere
-      </h1>
-      <p>Mailing list</p>
-      Sign up to ours
+        <Hero />
+        <Feature />
+        <h1 className="text-3xl font-bold">
+          Contact people everywhere
+        </h1>
+        <p>Mailing list</p>
+        <p>Sign up to ours</p>
+        <p>Contact users where they want to be contacted.</p>
+        <p>Email, Twitter, Instagram, Facebook</p>
+        <div className='w-full max-w-xs mx-auto'>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            Email
+          </label>
+          <div className="mt-1">
+            <input
+              name="domain"
+              id="domain"
+              className="p-2 shadow-sm border-indigo-500 border focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded-md"
+              placeholder="website.com"
+              aria-describedby="domain"
+              onChange={doDomain}
+              autoComplete='on'
+            />
+          </div>
+          <p className="mt-2 text-sm text-gray-500" id="email">
+            We&apos;ll only use this for spam.
+          </p>
+          <pre><code className="language-js text-xs" dangerouslySetInnerHTML= {{ __html: code_example_1 }}>
+          </code></pre>
+        </div>
+      
+        <div>
+          <a href='http://localhost:3000' rel='noreferrer'> click </a>
+        </div>
+
+        <div className='my-32'>
+          <h2 className='text-2xl mb-8'>Your form</h2> 
+        </div>
+        
+        <div className="w-full border-t border-gray-200 my-24" />
+        <section>
+          {/* Custom form */}
+          <div className='grid grid-cols-2 gap-10'>
+            <div className='text-sm'>
+              <h2 className='text-2xl mb-8'>Custom form</h2>
+              <p>You can simple post your custom form to https://api.singupy.com/{yourUrl} </p>
+              <br />
+              <p className='text-sm my-2'>&lt;form <span className='bg-indigo-100 p-1 rounded cursor-pointer' onClick={()=>{doCopy(`action="https://signupy.com/${yourUrl}"`)}}>action=&quot;https://signupy.com/{yourUrl}&quot;</span>&gt;
+              </p>
+              <p className='my-2'>Add this to your form and we will store any data you send to us.</p> 
+            </div>
+
+            <div className='mt-12 text-sm'>
+              <h3 className='text-xs text-slate-500 border-gray-500 rounded-t-lg p-3 tracking-wide'>Response Object</h3>
+              <pre className="language-js text-xs">
+                <code dangerouslySetInnerHTML= {{ __html: code_example_1 }}></code>
+              </pre>
+            </div>
+          </div>
+          {/* End of custom form */}
+          <div className="w-full border-t border-gray-200 my-24" />
+          {/* Embed form */}
+          <div className='grid grid-cols-2 gap-10'>
+            <div className='mt-12 text-sm'>
+              <h3 className='text-xs text-slate-500 border-gray-500 rounded-t-lg p-3 tracking-wide'>Embed source code</h3>
+              <pre className="language-js text-xs">
+              <code dangerouslySetInnerHTML= {{ __html: code_example_2 }}></code>
+              </pre>
+            </div>
+
+            <div className='text-sm'>
+              <h2 className='text-2xl mb-8'>Embed form</h2>
+              <p>You can simple post your custom form to https://api.singupy.com/{yourUrl}</p>
+              <br />
+              <p className='text-sm'>&lt;form <span className='bg-indigo-100 p-1 rounded cursor-pointer' onClick={()=>{doCopy(`action="https://signupy.com/${yourUrl}"`)}}>action=&quot;https://signupy.com/{yourUrl}&quot;</span>&gt;
+              </p>
+              <p>Simply add this url to your form actions and we will store any data for you.</p>
+            </div>
+          </div>
+          {/* End of embed */}
+          <div className="w-full border-t border-gray-200 my-24" />
+          {/* iFrame form */}
+          <div className='grid grid-cols-2 gap-10'>
+            <div className='text-sm'>
+              <h2 className='text-2xl mb-8'>iFrame form</h2>
+              <p>You can simple post your custom form to https://api.singupy.com/{yourUrl}</p>
+              <br />
+              <p className='text-sm'>&lt;form <span className='bg-indigo-100 p-1 rounded cursor-pointer' onClick={()=>{doCopy(`action="https://signupy.com/${yourUrl}"`)}}>action=&quot;https://signupy.com/{yourUrl}&quot;</span>&gt;
+              </p>
+              <p>Simply add this url to your form actions and we will store any data for you.</p>
+            </div>
+
+            <div className='mt-12 text-sm'>
+              <h3 className='text-xs text-slate-500 border-gray-500 rounded-t-lg p-3 tracking-wide'>iFrame source code</h3>
+              <pre className="inset prettyprint lang-js" 
+                dangerouslySetInnerHTML= {{ __html: code_example_2 }}>
+              </pre>
+            </div>
+          </div>
+          {/* End of iFrame */}
+          <div className="w-full border-t border-gray-200 my-24" />
+          {/* No code */}
+            <div className='text-sm'>
+              <h2 className='text-2xl mb-8'>No code</h2>
+              <p>You can simple post your custom form to https://api.singupy.com/{yourUrl} </p>
+              <br />
+              <p className='text-sm my-2'>&lt;form <span className='bg-indigo-100 p-1 rounded cursor-pointer' onClick={()=>{doCopy(`action="https://signupy.com/${yourUrl}"`)}}>action=&quot;https://signupy.com/{yourUrl}&quot;</span>&gt;
+              </p>
+              <p className='my-2'>Add this to your form and we will store any data you send to us.</p> 
+            </div>
+          {/* End of No code */}
+        </section>
+
       </main>
 
       <footer>
       </footer>
+    </div>
+  )
+}
+
+
+const code_example_1 = 
+`  
+  {
+    // Success
+    {
+      status: 200,
+      email: "address@website.com"
+    }
+
+    // Validation error
+    {
+      status: 400,
+      error: "Email already exists"
+    }
+  }
+  \t
+`   
+
+const code_example_2 = 
+`
+  {
+    // Success
+    {
+      status: 200,
+      email: "address@website.com"
+    }
+
+    // Validation error
+    {
+      status: 400,
+      error: "Email already exists"
+    }
+  }
+  \t
+`   
+
+const supportLinks = [
+  {
+    name: 'Custom form',
+    href: '#',
+    description:
+      'POST your form and we store your data. Export',
+  },
+  {
+    name: 'Embed',
+    href: '#',
+    description:
+      'Varius facilisi mauris sed sit. Non sed et duis dui leo, vulputate id malesuada non. Cras aliquet purus dui laoreet diam sed lacus, fames.',
+  },
+  {
+    name: 'Nocode',
+    href: '#',
+    description:
+      'Varius facilisi mauris sed sit. Non sed et duis dui leo, vulputate id malesuada non. Cras aliquet purus dui laoreet diam sed lacus, fames.',
+  },
+]
+
+const Header = () => {
+  return (
+    <div className="bg-white">
+    {/* Header */}
+    <div className="relative pb-32 bg-gray-800">
+      <div className="absolute inset-0">
+        <img
+          className="w-full h-full object-cover"
+          src="https://images.unsplash.com/photo-1525130413817-d45c1d127c42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=60&&sat=-100"
+          alt=""
+        />
+        <div className="absolute inset-0 bg-gray-800 mix-blend-multiply" aria-hidden="true" />
+      </div>
+      <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+        <h1 className="text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">Get people signed up first</h1>
+        <p className="mt-6 max-w-3xl text-xl text-gray-300">
+          Create your forms fast and worry about the data later. 
+        </p>
+      </div>
+    </div>
+
+    {/* Overlapping cards */}
+    <section
+      className="-mt-32 max-w-7xl mx-auto relative z-10 pb-32 px-4 sm:px-6 lg:px-8"
+      aria-labelledby="contact-heading"
+    >
+      <h2 className="sr-only" id="contact-heading">
+        Contact us
+      </h2>
+      <div className="grid grid-cols-1 gap-y-20 lg:grid-cols-3 lg:gap-y-0 lg:gap-x-8">
+        {supportLinks.map((link) => (
+          <div key={link.name} className="flex flex-col bg-white rounded-2xl shadow-xl">
+            <div className="flex-1 relative pt-16 px-6 pb-8 md:px-8">
+              <h3 className="text-xl font-medium text-gray-900">{link.name}</h3>
+              <p className="mt-4 text-base text-gray-500">{link.description}</p>
+            </div>
+            <div className="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
+              <a href={link.href} className="text-base font-medium text-indigo-700 hover:text-indigo-600">
+                Contact us<span aria-hidden="true"> &rarr;</span>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
     </div>
   )
 }
