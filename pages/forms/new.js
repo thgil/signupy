@@ -15,7 +15,7 @@ export default function CreateForm() {
             <div className="px-4 sm:px-0">
               <h3 className="text-lg font-medium leading-6 text-gray-900">Form</h3>
               <p className="mt-1 text-sm text-gray-600">
-                Let's create a new form
+                Let&apos;s create a new form
               </p>
             </div>
           </div>
